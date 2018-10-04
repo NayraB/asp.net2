@@ -1,0 +1,23 @@
+﻿@page
+@model WebApplication2.Pages.Usuarios.CadastrarModel
+@{
+    ViewData["Title"] = "Cadastrar";
+}
+
+<h2>Cadastrar</h2>
+
+<form >
+    <div>
+        <label for="nome">Nome:</label>
+        <input name="usuario.Nome" value="@Model.usuario.Nome" type="text" id="nome" >
+    </div>
+
+    <div>
+        <label for="senha">Senha:</label>
+        <input name="usuario.Senha" type="password" id="senha">
+    </div>
+
+    <div class="button">
+        <button>Enviar</button>
+    </div>
+</form>
