@@ -26,7 +26,8 @@
 {
     <div class="card">
         <div class="card-body">
-            @((WebApplication4.Data.Usuario)ViewData["usuario"]).Nome
+            <!--Usar o parenteses para fazer o casting e para o Razor-->
+            @(((WebApplication4.Data.Usuario)ViewData["usuario"]).Nome)
         </div>
     </div>
 }
