@@ -6,7 +6,6 @@
 
 <h2>Consultar</h2>
 
-
 <form method="post">
     <div class="form-group">
         <label>Cpf</label>
@@ -14,20 +13,12 @@
     </div>
     <button>Buscar</button>
 </form>
-
-@*
-    ***** ANOTAÇÕES IMPORTANTES *****
-    ViewData é um repositório. Dá para colocar qualquer variavel nele.
-    Ela é preservada entre os códigos que estão rodando.
-    É uma forma de compartilhar dados entre os arquivos.
-*@
-
 @if (ViewData["usuario"] != null)
 {
     <div class="card">
         <div class="card-body">
-            <!--Usar o parenteses para fazer o casting e para o Razor-->
             @(((WebApplication4.Data.Usuario)ViewData["usuario"]).Nome)
         </div>
     </div>
 }
+

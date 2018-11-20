@@ -5,25 +5,29 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
+using WebApplication4.Models;
 
 namespace WebApplication4.Pages.Usuarios
 {
     public class ConsultarModel : PageModel
     {
+        WebApplication4Context _context;
+        public ConsultarModel(WebApplication4Context context)
+        {
+            _context = context;
+        }
         public void OnGet()
         {
 
         }
         [HttpPost]
-            public void OnPost(string cpf)
+        public void OnPost(string cpf)
         {
-            List<Usuario> usuarios = CadastrarModel.usuarios;
-            foreach (Usuario u in usuarios)
+            Usuario u = _context.Usuario
+                .Where(u1 => u1.Cpf == cpf).FirstOrDefault();
+            if (u != null)
             {
-                if (cpf.Equals(u.Cpf))
-                {
-                    ViewData["usuario"] = u;
-                }
+                ViewData["usuario"] = u;
             }
         }
     }

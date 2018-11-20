@@ -1,0 +1,15 @@
+﻿@page
+@model WebApplication4.Pages.Mesas.MinhasMesasModel
+@{
+    ViewData["Title"] = "MinhasMesas";
+}
+
+<h2>MinhasMesas</h2>
+<div class="card card-body">
+    <form method="post">
+        <input type="text" asp-for="NomeMesa" />
+        <span asp-validation-for="NomeMesa"
+                     class="text-danger"></span>
+        <button>Criar Nova</button>
+    </form>
+</div>
