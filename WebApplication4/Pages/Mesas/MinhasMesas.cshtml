@@ -1,15 +1,48 @@
 ﻿@page
+@using WebApplication4.Data;
 @model WebApplication4.Pages.Mesas.MinhasMesasModel
 @{
     ViewData["Title"] = "MinhasMesas";
 }
-
 <h2>MinhasMesas</h2>
 <div class="card card-body">
     <form method="post">
         <input type="text" asp-for="NomeMesa" />
         <span asp-validation-for="NomeMesa"
-                     class="text-danger"></span>
+              class="text-danger"></span>
         <button>Criar Nova</button>
     </form>
 </div>
+<table>
+    <thead>
+    <th>
+        Nome
+    </th>
+    <th>
+        Usuarios
+    </th>
+    </thead>
+    <tbody>
+        @foreach (Mesa mesa in Model.mesas)
+        //Tá dando erro em mesas porque ainda não temos uma lista de mesa
+        {
+            <tr>
+                <td>@mesa.Nome</td>
+                <td>
+                    @foreach (MesaUsuario mu in mesa.MesasUsuarios)
+                    {
+                        @if (mesa.MesasUsuarios.First()!= mu)
+                        {
+                            @:,
+                            
+                            @*  O @: significa que tudo que for depois vem texto html
+                                No caso, a vírgula que vem depois do @: é o texto que 
+                                será colocado.     *@
+                        }
+                        @mu.Usuario.Nome
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
