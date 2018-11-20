@@ -47,6 +47,7 @@ namespace WebApplication4.Pages.Mesas
                     throw new Exception("Erro de permissão");
                 }
                 _jogoService.MontarMesa(NomeMesa, usuarioId ?? 0);
+                mesas = _jogoService.ListarMesa(usuarioId ?? 0);
             }
         }
     }

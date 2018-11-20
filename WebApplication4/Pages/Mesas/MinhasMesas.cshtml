@@ -15,12 +15,8 @@
 </div>
 <table>
     <thead>
-    <th>
-        Nome
-    </th>
-    <th>
-        Usuarios
-    </th>
+    Nome
+    Usuarios
     </thead>
     <tbody>
         @foreach (Mesa mesa in Model.mesas)
@@ -31,12 +27,12 @@
                 <td>
                     @foreach (MesaUsuario mu in mesa.MesasUsuarios)
                     {
-                        @if (mesa.MesasUsuarios.First()!= mu)
+                        @if (mesa.MesasUsuarios.First() != mu)
                         {
                             @:,
-                            
+
                             @*  O @: significa que tudo que for depois vem texto html
-                                No caso, a vírgula que vem depois do @: é o texto que 
+                                No caso, a vírgula que vem depois do @: é o texto que
                                 será colocado.     *@
                         }
                         @mu.Usuario.Nome

@@ -19,6 +19,7 @@ namespace WebApplication4.Util
             string path = httpContext.Request.Path;
             if ((httpContext.Session.GetInt32("usuarioId").HasValue &&
                 httpContext.Session.GetInt32("usuarioId") != 0) ||
+                "/Usuarios/Cadastrar".Equals(path) ||
                 "/".Equals(path) ||
                 "/Usuarios/Login".Equals(path))
             {
