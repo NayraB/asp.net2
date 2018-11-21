@@ -28,7 +28,7 @@ namespace WebApplication4.Pages.Mesas
         {
             int usuarioId = HttpContext.Session.GetInt32("usuarioId") ?? 0;
             // obtém estado atual do jogo
-            MesaState = _jogoService.DadosMesa(usuarioId, MesaId);
+            //MesaState = _jogoService.DadosMesa(usuarioId, MesaId);
             if (MesaState == null)
             {
                 return RedirectToPage("/erro");
@@ -39,7 +39,7 @@ namespace WebApplication4.Pages.Mesas
             {
                 // se não tem config, o primeiro jogador que abrir a mesa é o branco
                 MesaConfig = new MesaChessConfig { WhiteUserId = usuarioId };
-                _jogoService.SalvarEstadoMesa(MesaId, JsonConvert.SerializeObject(MesaConfig), "", "");
+                //_jogoService.SalvarEstadoMesa(MesaId, JsonConvert.SerializeObject(MesaConfig), "", "");
             }
 
             return Page();

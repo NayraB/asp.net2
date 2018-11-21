@@ -34,7 +34,7 @@ namespace WebApplication4.Pages.Mesas
             }
 
             //O service é o que lê as mesas e depois estou atribuindo os valores para a variável mesas
-            mesas =_jogoService.ListarMesa(usuarioId ?? 0);
+            mesas = _jogoService.ListarMesa(usuarioId ?? 0);
         }
         public void OnPost()
         {
@@ -48,6 +48,7 @@ namespace WebApplication4.Pages.Mesas
                 }
                 _jogoService.MontarMesa(NomeMesa, usuarioId ?? 0);
                 mesas = _jogoService.ListarMesa(usuarioId ?? 0);
+
             }
         }
     }

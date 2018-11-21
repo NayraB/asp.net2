@@ -1,0 +1,54 @@
+﻿@page
+@using WebApplication4.Data;
+@model WebApplication4.Pages.Mesas.BuscaModel
+@{
+    ViewData["Title"] = "Busca";
+}
+
+<h2>Busca</h2>
+<div asp-validation-summary="ModelOnly"></div>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Cpf">CPF do usuário</label>
+        <input type="text" asp-for="Cpf" class="form-control" />
+        <span asp-validation-for="Cpf" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NomeUsuario">Nome do usuário</label>
+        <input type="text" asp-for="NomeUsuario" class="form-control" />
+        <span asp-validation-for="NomeUsuario" class="text-danger"></span>
+    </div>
+    <button asp-page-handler="Buscar" class="btn btn-primary">Buscar</button>
+</form>
+<form method="post">
+    <table class="table table-hover">
+        <thead>
+        <th>Nome</th>
+        <th>Usuários</th>
+        </thead>
+        <tbody>
+            @foreach (Mesa mesa in Model.mesas)
+            //Tá dando erro em mesas porque ainda não temos uma lista de mesa
+            {
+                <tr>
+                    <td>@mesa.Nome</td>
+                    <td>
+                        @foreach (MesaUsuario mu in mesa.MesasUsuarios)
+                        {
+                            @if (mesa.MesasUsuarios.First() != mu)
+                            {
+                                @:,
+
+                                @*  O @: significa que tudo que for depois vem texto html
+                                    No caso, a vírgula que vem depois do @: é o texto que
+                                    será colocado.     *@
+                            }
+                            @mu.Usuario.Nome
+                        }
+                    </td>
+                    <td><button asp-page-handler="Entrar">Entrar</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
