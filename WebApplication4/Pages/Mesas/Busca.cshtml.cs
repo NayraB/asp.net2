@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Business;
@@ -51,6 +52,40 @@ namespace WebApplication4.Pages.Mesas
                     mesas = new List<Mesa>();
                 }
             }
+        }
+
+        public ActionResult OnPostEntrar(int mesaId)
+        {
+            int? usuarioId =
+                HttpContext.Session.GetInt32("usuarioId");
+            if (!usuarioId.HasValue)
+            {
+                throw new Exception("Erro de permissão");
+            }
+            try
+            {
+                _jogoService.EntrarMesa(usuarioId ?? 0, mesaId);
+                return RedirectToPage("MinhasMesas");
+            }
+            catch (JaEstaNaMesaException e)
+            {
+                ModelState.AddModelError("", "Usuário já está na mesa");
+            }
+            catch (MesaCheiaException e)
+            {
+                ModelState.AddModelError("", "Mesa está cheia");
+            }
+            if (Cpf != null && Cpf.Length > 0)
+            {
+                // busca por cpf, caso ele seja preenchido
+                mesas = _jogoService.ListarMesasDoUsuario(Cpf);
+            }
+            else if (NomeUsuario != null && NomeUsuario.Length > 0)
+            {
+                // busca por Nome 
+                mesas = _jogoService.ListarMesasDoUsuarioPeloNome(NomeUsuario);
+            }
+            return Page();
         }
     }
 }

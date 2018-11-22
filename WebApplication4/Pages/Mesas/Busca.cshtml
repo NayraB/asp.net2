@@ -18,9 +18,11 @@
         <input type="text" asp-for="NomeUsuario" class="form-control" />
         <span asp-validation-for="NomeUsuario" class="text-danger"></span>
     </div>
-    <button asp-page-handler="Buscar" class="btn btn-primary">Buscar</button>
+    <button asp-page-handler="Buscar" name="btnBuscar" class="btn btn-primary">Buscar</button>
 </form>
 <form method="post">
+    <input type="hidden" asp-for="Cpf" />
+    <input type="hidden" asp-for="NomeUsuario" />
     <table class="table table-hover">
         <thead>
         <th>Nome</th>

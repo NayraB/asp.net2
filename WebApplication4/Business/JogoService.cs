@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using WebApplication4.Data;
 using WebApplication4.Models;
@@ -76,12 +77,80 @@ namespace WebApplication4.Business
             _context.MesasUsuarios.Add(mesaUsuario);
             _context.SaveChanges();
         }
+        public void EntrarMesa(int usuarioId, int mesaId)
+        {
+            int count = _context.MesasUsuarios
+                .Where(m1 => m1.UsuarioId == usuarioId && 
+                m1.MesaId == mesaId).Count();
+            if(count > 0)
+            {
+                throw new JaEstaNaMesaException();
+            }
+
+            count = _context.MesasUsuarios
+                .Where(m1 => m1.UsuarioId == usuarioId &&
+                m1.MesaId == mesaId).Count();
+            if (count >= 2)
+            {
+                throw new MesaCheiaException();
+            }
+
+            MesaUsuario mu = new MesaUsuario
+            {
+                MesaId = mesaId,
+                UsuarioId = usuarioId
+            };
+            _context.MesasUsuarios.Add(mu);
+            _context.SaveChanges();
+        }
     }
+
+    [Serializable]
+    internal class MesaCheiaException : Exception
+    {
+        public MesaCheiaException()
+        {
+        }
+
+        public MesaCheiaException(string message) : base(message)
+        {
+        }
+
+        public MesaCheiaException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected MesaCheiaException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
+
+    [Serializable]
+    internal class JaEstaNaMesaException : Exception
+    {
+        public JaEstaNaMesaException()
+        {
+        }
+
+        public JaEstaNaMesaException(string message) : base(message)
+        {
+        }
+
+        public JaEstaNaMesaException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected JaEstaNaMesaException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
+
     public interface IJogoService
     {
         List<Mesa> ListarMesa(int usuarioId);
         List<Mesa> ListarMesasDoUsuario(string cpf);
         List<Mesa> ListarMesasDoUsuarioPeloNome(string nome);
         void MontarMesa(string nome, int usuarioId);
+        void EntrarMesa(int usuarioId, int mesaId);
     }
 }
